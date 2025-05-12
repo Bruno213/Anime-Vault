@@ -7,12 +7,13 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.example.animevault.ui.compositionproviders.ProvideTextDimens
 import com.example.animevault.ui.navigation.AppNavigation
 import com.example.animevault.ui.theme.AnimeVaultTheme
 
 @Composable
 fun AppStart() {
-  AnimeVaultTheme {
+  AppTheme {
     Surface(modifier = Modifier.applySafeDrawing()) {
       AppNavigation()
     }
@@ -20,9 +21,20 @@ fun AppStart() {
 }
 
 @Composable
+fun AppTheme(content: @Composable () -> Unit) {
+  AnimeVaultTheme {
+    ProvideTextDimens {
+      content()
+    }
+  }
+}
+
+@Composable
 fun AppThemePreview(content: @Composable ()-> Unit) {
   AnimeVaultTheme {
-    Surface(modifier = Modifier.applySafeDrawing(), content = content)
+    ProvideTextDimens {
+      Surface(modifier = Modifier.applySafeDrawing(), content = content)
+    }
   }
 }
 

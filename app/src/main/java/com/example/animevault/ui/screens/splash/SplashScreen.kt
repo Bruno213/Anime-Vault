@@ -6,7 +6,7 @@ import com.example.animevault.ui.theme.AppPreviews
 
 @Composable
 fun SplashScreen() {
-
+  Content()
 }
 
 @Composable

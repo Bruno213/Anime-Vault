@@ -79,6 +79,11 @@ dependencies {
   androidTestImplementation(libs.androidx.room.testing)
   implementation(libs.androidx.datastore.preferences)
 
+  implementation(libs.koin.androidx.compose)
+
+// Koin for Tests
+  testImplementation(libs.koin.test.junit4)
+
   implementation(libs.timber)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)

@@ -1,11 +1,10 @@
-package com.offerwise.PanelApps.ui.compose.compositionproviders
+package com.example.animevault.ui.compositionproviders
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.offerwise.PanelApps.ui.compose.theme.TextDimens
-import com.offerwise.PanelApps.utils.WindowType
+import com.example.animevault.ui.theme.TextDimens
 
 
 private val LocalTextDimens = staticCompositionLocalOf {
@@ -16,12 +15,7 @@ private val LocalTextDimens = staticCompositionLocalOf {
 fun ProvideTextDimens(
   content: @Composable () -> Unit
 ) {
-
-  val windowInfo = LocalWindowInfo.current
-
-  val dimensionSet = remember {
-    if(windowInfo.screenWidthInfo == WindowType.Compact) TextDimens.compactDimens else TextDimens.mediumDimens
-  }
+  val dimensionSet = remember { TextDimens.compactDimens }
   CompositionLocalProvider(LocalTextDimens provides dimensionSet, content = content)
 }
 

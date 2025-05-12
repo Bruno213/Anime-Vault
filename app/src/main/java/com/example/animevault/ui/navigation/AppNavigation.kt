@@ -18,6 +18,7 @@ import com.example.animevault.ui.screens.filter.FilterScreen
 import com.example.animevault.ui.screens.list.ListScreen
 import com.example.animevault.ui.screens.splash.SplashScreen
 import com.offerwise.PanelApps.ui.compose.compositionproviders.ProvideNavigator
+import org.koin.compose.KoinContext
 
 
 @Composable
@@ -95,7 +96,7 @@ fun  AppNavigation() {
           )
         }
       ) {
-        DetailsScreen()
+          DetailsScreen()
       }
 
       composable(
