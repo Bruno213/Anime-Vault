@@ -1,7 +1,12 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
+
+  alias(libs.plugins.kotlin.ksp)
 }
 
 android {
@@ -19,9 +24,21 @@ android {
   }
 
   buildTypes {
+    val myProperties = Properties().apply {
+      load(FileInputStream(File(rootProject.rootDir, "env.properties")))
+    }
+
     release {
       isMinifyEnabled = false
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+
+      buildConfigField("String", "ANI_LIST_API", myProperties.getProperty("ANI_LIST_API"))
+    }
+
+    debug {
+      applicationIdSuffix = ".debug"
+
+      buildConfigField("String", "ANI_LIST_API", myProperties.getProperty("ANI_LIST_API"))
     }
   }
   compileOptions {
@@ -32,12 +49,12 @@ android {
     jvmTarget = "11"
   }
   buildFeatures {
+    buildConfig = true
     compose = true
   }
 }
 
 dependencies {
-
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)
   implementation(libs.androidx.activity.compose)
@@ -46,6 +63,23 @@ dependencies {
   implementation(libs.androidx.ui.graphics)
   implementation(libs.androidx.ui.tooling.preview)
   implementation(libs.androidx.material3)
+
+  implementation(libs.androidx.animation)
+  implementation(libs.lottie.compose)
+  implementation(libs.coil.compose)
+
+  implementation (libs.androidx.navigation.compose)
+
+  implementation(libs.retrofit)
+  // Room
+  implementation(libs.androidx.room.ktx)
+  implementation(libs.androidx.room.runtime)
+  annotationProcessor(libs.androidx.room.compiler)
+  ksp(libs.androidx.room.compiler)
+  androidTestImplementation(libs.androidx.room.testing)
+  implementation(libs.androidx.datastore.preferences)
+
+  implementation(libs.timber)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
