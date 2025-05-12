@@ -1,6 +1,7 @@
 package com.example.animevault
 
-import application.appModule
+import application.di.appModule
+import application.di.networkModule
 import org.junit.Test
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.test.KoinTest
@@ -12,5 +13,6 @@ class CheckModulesTest: KoinTest {
   @Test
   fun verifyModules() {
     appModule.verify()
+    networkModule.verify()
   }
 }

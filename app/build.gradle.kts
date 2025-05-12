@@ -5,11 +5,16 @@ plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
+  alias(libs.plugins.apollo.kotlin)
 
   alias(libs.plugins.kotlin.ksp)
 }
 
 android {
+  val myProperties = Properties().apply {
+    load(FileInputStream(File(rootProject.rootDir, "env.properties")))
+  }
+
   namespace = "com.example.animevault"
   compileSdk = 35
 
@@ -24,10 +29,6 @@ android {
   }
 
   buildTypes {
-    val myProperties = Properties().apply {
-      load(FileInputStream(File(rootProject.rootDir, "env.properties")))
-    }
-
     release {
       isMinifyEnabled = false
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -52,6 +53,16 @@ android {
     buildConfig = true
     compose = true
   }
+
+  apollo {
+    service("service") {
+      packageName.set("com.anilist.graphQL")
+      introspection {
+        endpointUrl.set(myProperties.getProperty("ANI_LIST_API"))
+        schemaFile.set(file("src/main/graphql/schema.graphqls")) //replace with the schema file location
+      }
+    }
+  }
 }
 
 dependencies {
@@ -67,10 +78,12 @@ dependencies {
   implementation(libs.androidx.animation)
   implementation(libs.lottie.compose)
   implementation(libs.coil.compose)
+  implementation(libs.coil.network.okhttp)
 
   implementation (libs.androidx.navigation.compose)
 
-  implementation(libs.retrofit)
+  implementation(libs.apollo.runtime)
+  implementation(libs.logging.interceptor)
   // Room
   implementation(libs.androidx.room.ktx)
   implementation(libs.androidx.room.runtime)

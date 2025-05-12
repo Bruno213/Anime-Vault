@@ -1,0 +1,29 @@
+query GetAnimeList {
+    Page @nonnull {
+        pageInfo @nonnull {
+            perPage @nonnull
+            currentPage @nonnull
+            lastPage @nonnull
+            hasNextPage @nonnull
+        }
+
+        media @nonnull {
+            id @nonnull
+            status @nonnull
+            format @nonnull
+            genres @nonnull
+            source @nonnull
+            averageScore @nonnull
+            siteUrl @nonnull
+            title @nonnull {
+                english
+                native @nonnull
+            }
+            coverImage @nonnull {
+                large @nonnull
+            }
+            description @nonnull
+            updatedAt @nonnull
+        }
+    }
+}
