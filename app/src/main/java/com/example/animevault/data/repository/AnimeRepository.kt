@@ -9,17 +9,15 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 interface AnimeRepository {
-  suspend fun getAnime(): Result<AniListData>
+  suspend fun getAnime(page: Int): Result<AniListData>
 }
 
 class AnimeRepositoryImpl(
   private val apolloClient: ApolloClient
 ): AnimeRepository {
 
-  override suspend fun getAnime() = withContext(Dispatchers.IO) {
-
-    val response = apolloClient.query(GetAnimeListQuery()).execute()
-
+  override suspend fun getAnime(page: Int) = withContext(Dispatchers.IO) {
+    val response = apolloClient.query(GetAnimeListQuery(page)).execute()
     Timber.tag("ApolloResponseError").d(response.exception)
 
     if(!response.exception?.message.isNullOrEmpty()) {

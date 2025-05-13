@@ -13,6 +13,7 @@ data class UIState(
   val currentPage: Int = 0,
   val hasNextPage: Boolean = false,
   val list: ListState = ListState(),
+  val filteredList: ListState = ListState(),
   val errorMessage: String = "",
   val selectedMedia: AniListMedia? = null
 )

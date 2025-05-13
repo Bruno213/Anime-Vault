@@ -1,5 +1,5 @@
-query GetAnimeList {
-    Page @nonnull {
+query GetAnimeList($page: Int!) {
+    Page(page: $page) @nonnull {
         pageInfo @nonnull {
             perPage @nonnull
             currentPage @nonnull

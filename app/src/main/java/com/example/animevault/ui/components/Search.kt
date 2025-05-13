@@ -79,12 +79,6 @@ fun SearchInput(
          horizontalArrangement = Arrangement.spacedBy(8.dp),
          modifier = Modifier.padding(start = 16.dp)
        ) {
-         Icon(
-           painter = painterResource(id = R.drawable.ic_lup),
-           contentDescription = null,
-           tint = Green400,
-         )
-
          Box(
            contentAlignment = Alignment.CenterStart,
          ) {
